@@ -2,6 +2,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "@/api/config";
 
 const PaymentButton = ({ amount }: { amount: number }) => {
   const [loading, setLoading] = useState(false);
@@ -10,7 +11,7 @@ const PaymentButton = ({ amount }: { amount: number }) => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/v2/razorpay/create-transaction",
+        `${API_BASE_URL}/api/v2/razorpay/create-transaction`,
         { amount }
       );
 
@@ -23,7 +24,7 @@ const PaymentButton = ({ amount }: { amount: number }) => {
         order_id: data.id,
         handler: async function (response: any) {
           await axios.post(
-            "http://localhost:4000/api/v2/razorpay/verify-payment",
+            `${API_BASE_URL}/api/v2/razorpay/verify-payment`,
             response
           );
           alert("Payment Successful!");

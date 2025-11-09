@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "@/api/config";
 
 interface OrderSaveResponse {
   success: boolean;
@@ -69,7 +70,7 @@ export default function TestOrderPage() {
       console.log("🧪 Sending test order data:", JSON.stringify(formData, null, 2));
 
       const response = await axios.post(
-        "http://localhost:4000/api/orders/test-save",
+        `${API_BASE_URL}/api/orders/test-save`,
         {
           ...formData,
           createdAt: new Date().toISOString(),

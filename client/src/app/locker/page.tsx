@@ -17,6 +17,7 @@ import AddressForm from "@/ui/address-form";
 import { UserResponse } from "@/api/auth";
 import { saveUserData, getUserData, getUserId } from "@/lib/auth";
 import { getUserAddress, AddressResponse } from "@/api/address";
+import { API_BASE_URL } from "@/api/config";
 
 type CheckoutStep = "cart" | "auth" | "address" | "address-confirm";
 
@@ -182,7 +183,7 @@ export default function LockerPage() {
       // Step 1: Create Razorpay order
       console.log("💳 Creating Razorpay order...");
       const { data: razorpayOrder } = await axios.post(
-        "http://localhost:4000/api/v2/razorpay/create-transaction",
+        `${API_BASE_URL}/api/v2/razorpay/create-transaction`,
         { amount: totalAmount }
       );
       console.log("✅ Razorpay order created:", razorpayOrder.id);
@@ -230,7 +231,7 @@ export default function LockerPage() {
 
       try {
         const saveResponse = await axios.post(
-          "http://localhost:4000/api/orders/test-save",
+          `${API_BASE_URL}/api/orders/test-save`,
           orderData,
           {
             headers: { 'Content-Type': 'application/json' },
